@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Gyan - Club Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f8f9fa;
+            --primary-text: #2c3e50;
+            --accent-color: #1abc9c;
+            --secondary-bg: #ffffff;
+            --nav-bg: linear-gradient(90deg, #1abc9c, #16a085);
+            --nav-text: #ffffff;
+            --card-hover: #7f8c8d;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --glow-color: rgba(26, 188, 156, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            height: 60px;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar .logo a {
+            display: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+
+        .navbar a.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--nav-text);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            flex-direction: column;
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            z-index: 999;
+            align-items: center;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background: var(--secondary-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 188, 156, 0.15), rgba(22, 160, 133, 0.05));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .club-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .club-header img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        .club-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin: 0;
+            text-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .club-info-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .club-info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .club-info-card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .club-info-card p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: var(--primary-text);
+        }
+
+        .club-info-card .info-label {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .club-info-card .squad-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .club-info-card .squad-list span {
+            background: var(--accent-color);
+            color: var(--nav-text);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 50px;
+            }
+
+            .navbar .logo img {
+                height: 30px;
+            }
+
+            .navbar .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-nav {
+                top: 50px;
+            }
+
+            .container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .club-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .club-header img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .club-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .club-info-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .club-info-card p {
+                font-size: 0.9rem;
+            }
+
+            .club-info-card .squad-list span {
+                font-size: 0.8rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="goToHome()">
+            <img src="ballgyanlogo.png" alt="Ball Gyan Logo">
+            <a href="index.html" id="logo-link">Ball Gyan</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="table.html">NSL</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="table.html">NSL</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <div class="container" id="content"></div>
+
+    <script>
+        const appData = {
+            "clubs": {
+                "Kathmandu RayZrs FC": {
+                    "logo": "club_logo_kathmandu_rayzrs_fc.png",
+                    "MP": 1, "W": 1, "D": 0, "L": 0, "Goals": "2-1", "GD": 1, "Pts": 3,
+                    "manager": "Rohan Karki",
+                    "squad": ["Dipesh Gurung", "Kuldip Karki", "Abhishek Baral", "Dinesh Henjan", "Gillespye Jung Karki", "Ashish Chapagain", "Kamal Shrestha", "Diwakar Chaudhary", "Anjal Maharjan"],
+                    "location": "Dasharath Stadium, Kathmandu",
+                    "introduction": "Kathmandu RayZrs FC is known for its aggressive attacking style and passionate fanbase in the Nepal Super League."
+                },
+                "Lalitpur City FC": {
+                    "logo": "club_logo_lalitpur_city_fc.png",
+                    "MP": 1, "W": 0, "D": 0, "L": 1, "Goals": "1-2", "GD": -1, "Pts": 0,
+                    "manager": "Roshan Dong",
+                    "squad": ["Sanish Shrestha", "Aditya Shakya", "Santosh Khatri", "Mani Kumar Lama", "Sudip Gurung", "Yogesh Gurung", "Nabin Lama", "Abhishek Waiba", "Samit Shrestha"],
+                    "location": "Lalitpur Stadium, Lalitpur",
+                    "introduction": "Lalitpur City FC focuses on a balanced approach with strong defense, representing the heart of Lalitpur."
+                },
+                "Butwal Lumbini FC": {
+                    "logo": "club_logo_butwal_lumbini_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Suman Maharjan",
+                    "squad": ["Arik Bista","Ayush Tripathi", "Nirajan Dhami", "Saroj Tamang", "Deep Karki", "Pradip Lama", "Fatehman Ghale", "Bimal Pandey", "Tikendra Singh Thapa", "Sandeep Karki"],
+                    "location": "Butwal Stadium, Butwal",
+                    "introduction": "Butwal Lumbini FC is a rising team with young talent, aiming to make a mark in the NSL."
+                },
+                "Jhapa FC": {
+                    "logo": "club_logo_jhapa_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Yogesh Gurung",
+                    "squad": ["Chiring Lama", "Ashish Gurung", "NRN", "Abinash Syangtan", "Dipesh Dhimal", "Anjal Shrestha", "Roshan Pahari", "Dipendra BK", "Ujjwal Rai"],
+                    "location": "Jhapa Stadium, Jhapa",
+                    "introduction": "Jhapa FC is known for its passionate fanbase and competitive spirit in the Nepal Super League."
+                },
+                "Dhangadhi FC": {
+                    "logo": "club_logo_dhangadhi_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Juan Manuel Martínez",
+                    "squad": ["Devendra Tamang", "Randip Paudyal", "Ram Chandra Wajee", "Bibek Poudel", "Pasang Lama", "George Prince Karki", "Prashant Laksam", "Ashok Khawas", "Jiyarath Sheikh"],
+                    "location": "Dhangadhi Stadium, Dhangadhi",
+                    "introduction": "Dhangadhi FC has a history of strong performances in the NSL, with a focus on tactical gameplay."
+                },
+                "Pokhara Thunders FC": {
+                    "logo": "club_logo_pokhara_thunders_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Bimal Gharti Magar",
+                    "squad": ["Ayush Ghalan", "Padam Bhattarai", "Ekraj Budhathoki", "NRN", "Suraj Singh Thakuri", "Ram Thapa", "Chandan Das", "Bishal Tamang", "Krishal Moktan"],
+                    "location": "Pokhara Stadium, Pokhara",
+                    "introduction": "Pokhara Thunders FC is known for its fast-paced gameplay and scenic home ground."
+                },
+                "FC Chitwan": {
+                    "logo": "club_logo_fc_chitwan.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Sunil Shrestha",
+                    "squad": ["Bishal Shrestha", "Tshiring Gurung", "Roshan Rana Magar", "Abhishek Limbu", "Sumit Shrestha", "Neeraj Chaudhary", "Milan Rai", "Shishir Lekhi", "Jaya Gurung"],
+                    "location": "Chitwan Stadium, Chitwan",
+                    "introduction": "FC Chitwan is a team with a strong defensive strategy, representing the pride of Chitwan."
+                },
+                "Biratnagar City FC": {
+                    "logo": "club_logo_biratnagar_city_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Sanjay Limbu",
+                    "squad": ["Roshan Magar", "Nabin Thapa", "Suman Gurung", "Aashish Lama"],
+                    "location": "Biratnagar Stadium, Biratnagar",
+                    "introduction": "Biratnagar City FC is known for its youth development program and community support."
+                },
+                "Sporting Ilam FC": {
+                    "logo": "club_logo_sporting_ilam_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "manager": "Prabin Magar",
+                    "squad": ["Suresh Rai", "Bikash Shrestha", "Niraj Limbu", "Sabin Thapa"],
+                    "location": "Ilam Stadium, Ilam",
+                    "introduction": "Sporting Ilam FC is a team with a focus on local talent and a growing presence in the NSL."
+                }
+            }
+        };
+
+        function initializeNavbar() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function populateClubProfile(container) {
+            const selectedClub = localStorage.getItem('selectedClub');
+            if (!selectedClub || !appData.clubs[selectedClub]) {
+                container.innerHTML = '<p>Club not found.</p>';
+                return;
+            }
+
+            const club = appData.clubs[selectedClub];
+
+            const header = `
+                <div class="club-header">
+                    <img src="${club.logo}" alt="${selectedClub} Logo">
+                    <h1>${selectedClub}</h1>
+                </div>
+            `;
+
+            const squadList = club.squad.map(player => `<span>${player}</span>`).join('');
+            const infoCard = `
+                <div class="club-info-card">
+                    <h2>Club Information</h2>
+                    <p><span class="info-label">Introduction:</span> ${club.introduction}</p>
+                    <p><span class="info-label">Manager:</span> ${club.manager}</p>
+                    <p><span class="info-label">Location:</span> ${club.location}</p>
+                    <p><span class="info-label">Players:</span></p>
+                    <div class="squad-list">${squadList}</div>
+                </div>
+            `;
+
+            container.innerHTML = header + infoCard;
+        }
+
+        window.onload = () => {
+            initializeNavbar();
+            const content = document.getElementById('content');
+            const section = document.createElement('div');
+            section.classList.add('section');
+            content.appendChild(section);
+            populateClubProfile(section);
+        };
+    </script>
+</body>
+</html>

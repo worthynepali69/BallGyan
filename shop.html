@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Gyan - Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0080ff;
+            --primary-text: #2c3e50;
+            --accent-color: #1abc9c;
+            --secondary-bg: #ffffff;
+            --nav-bg: linear-gradient(90deg, #1abc9c, #16a085);
+            --nav-text: #ffffff;
+            --card-hover: #7f8c8d;
+            --border-color: #dfe6e9;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --highlight-red: #e74c3c;
+            --highlight-yellow: #ffeb3b;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e6f0fa, #d6e6f2);
+            color: var(--primary-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+            padding: 0.3rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            height: 50px;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .navbar .logo img {
+            height: 35px;
+            width: auto;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .navbar a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+
+        .navbar a.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.3rem;
+            color: var(--nav-text);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            flex-direction: column;
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            z-index: 999;
+            align-items: center;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 0.7rem 1rem;
+            font-size: 0.95rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-jhola {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .search-sort-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+            justify-content: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 400px;
+        }
+
+        .search-bar input {
+            padding: 0.6rem 2.5rem 0.6rem 1rem;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .sort-menu {
+            position: relative;
+        }
+
+        .sort-menu select {
+            padding: 0.6rem 2rem 0.6rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 0.95rem;
+            background: var(--secondary-bg);
+            color: var(--primary-text);
+            cursor: pointer;
+            appearance: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .sort-menu select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .sort-menu::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-text);
+            pointer-events: none;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--highlight-red);
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .no-results.active {
+            display: block;
+        }
+
+        .jhola-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            background: var(--accent-color);
+            border-radius: 50%;
+            padding: 0.5rem;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .jhola-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .jhola-icon .jhola-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--highlight-red);
+            color: #ffffff;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            box-shadow: 0 5px 12px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding: 1.2rem;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            color: var(--primary-text);
+        }
+
+        .product-card h3 .highlight {
+            background: var(--highlight-yellow);
+            padding: 0 0.2rem;
+            border-radius: 3px;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            color: var(--highlight-red);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-card .jhola-btn {
+            background: linear-gradient(45deg, var(--accent-color), #16a085);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .product-card .jhola-btn:hover {
+            background: linear-gradient(45deg, #16a085, var(--accent-color));
+            transform: scale(1.03);
+        }
+
+        .product-card .jhola-btn img {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+        }
+
+        .jhola-dialog {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background: var(--secondary-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            padding: 1rem;
+            width: 280px;
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .jhola-dialog.active {
+            display: block;
+        }
+
+        .jhola-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .jhola-item img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .jhola-item-details h4 {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .jhola-item-details p {
+            font-size: 0.85rem;
+            color: var(--highlight-red);
+            margin: 0;
+        }
+
+        .jhola-item-details .size {
+            font-size: 0.8rem;
+            color: var(--primary-text);
+            margin: 0;
+        }
+
+        .jhola-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .jhola-item-quantity button {
+            background: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .jhola-total {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--highlight-red);
+            margin-bottom: 0.8rem;
+        }
+
+        .jhola-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .jhola-buttons button {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .jhola-buttons .checkout {
+            background: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            flex: 1;
+            margin-right: 0.5rem;
+        }
+
+        .jhola-buttons .close {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--primary-text);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 45px;
+            }
+
+            .navbar .logo img {
+                height: 30px;
+            }
+
+            .navbar .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-nav {
+                top: 45px;
+            }
+
+            .container {
+                padding: 0 1rem;
+                margin: 1.5rem auto;
+            }
+
+            .search-sort-container {
+                flex-direction: column;
+                gap: 0.8rem;
+                max-width: 100%;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .sort-menu select {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .jhola-icon {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .jhola-dialog {
+                width: 90%;
+                right: 5%;
+                bottom: 60px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .product-card {
+                padding: 0.8rem;
+            }
+
+            .product-card img {
+                height: 150px;
+            }
+
+            .product-card h3 {
+                font-size: 1rem;
+            }
+
+            .product-card p {
+                font-size: 0.9rem;
+            }
+
+            .product-card .jhola-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="goToHome()">
+            <img src="ballgyanlogo.png" alt="Ball Gyan Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="table.html">NSL</a>
+            <a href="shop.html" class="active">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="NSL.html">NSL</a>
+            <a href="shop.html" class="active">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="search-jhola">
+            <div class="search-sort-container">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search for items..." onkeypress="if(event.key === 'Enter') searchProducts()">
+                    <img src="searchicon.png" alt="Search" class="search-icon" onclick="searchProducts()">
+                </div>
+                <div class="sort-menu">
+                    <select id="sort-select" onchange="sortProducts()">
+                        <option value="relevance">Sort by: Relevance</option>
+                        <option value="newest">Sort by: Newest</option>
+                        <option value="oldest">Sort by: Oldest</option>
+                        <option value="price-low">Sort by: Price (Low to High)</option>
+                        <option value="price-high">Sort by: Price (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="jhola-icon" onclick="toggleJhola()">
+                <img src="jhola-icon.png" alt="Jhola">
+                <span class="jhola-count" id="jhola-count">0</span>
+            </div>
+        </div>
+
+        <div class="no-results" id="no-results">No results found</div>
+
+        <div class="product-grid" id="product-grid">
+            <div class="product-card" data-name="Nepal Cricket Team 2025" data-date="2025-01-15" data-price="2500" onclick="goToProduct('nepal-cricket')">
+                <img src="nepal-cricket-jersey.jpg" alt="Nepal Cricket Jersey">
+                <h3>Nepal Cricket Team 2025</h3>
+                <p>NPR 2500.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Nepal Cricket Team 2025', 2500, 'nepal-cricket-jersey.jpg', 'M', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Real Madrid Home Kit 2024/25" data-date="2024-06-01" data-price="3500" onclick="goToProduct('real-madrid')">
+                <img src="real-madrid-jersey.jpg" alt="Real Madrid Jersey">
+                <h3>Real Madrid Home Kit 2024/25</h3>
+                <p>NPR 3500.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Real Madrid Home Kit 2024/25', 3500, 'real-madrid-jersey.jpg', 'L', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Dhangadhi FC Jersey" data-date="2024-03-10" data-price="2000" onclick="goToProduct('dhangadhi-fc')">
+                <img src="dhangadhi-fc-jersey.jpg" alt="Dhangadhi FC Jersey">
+                <h3>Dhangadhi FC Jersey</h3>
+                <p>NPR 2000.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Dhangadhi FC Jersey', 2000, 'dhangadhi-fc-jersey.jpg', 'S', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="PSG Away Kit 2024/25" data-date="2024-07-20" data-price="3200" onclick="goToProduct('psg')">
+                <img src="psg-jersey.jpg" alt="PSG Jersey">
+                <h3>PSG Away Kit 2024/25</h3>
+                <p>NPR 3200.00</p>
+                <button class="jhola-btn" onclick="addToJhola('PSG Away Kit 2024/25', 3200, 'psg-jersey.jpg', 'XL', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Man Utd Home Kit 2024/25" data-date="2024-06-15" data-price="3400" onclick="goToProduct('man-utd')">
+                <img src="man-utd-jersey.jpg" alt="Man Utd Jersey">
+                <h3>Man Utd Home Kit 2024/25</h3>
+                <p>NPR 3400.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Man Utd Home Kit 2024/25', 3400, 'man-utd-jersey.jpg', 'M', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Barcelona Away Kit 2024/25" data-date="2024-07-01" data-price="3300" onclick="goToProduct('barcelona')">
+                <img src="barcelona-jersey.jpg" alt="Barcelona Jersey">
+                <h3>Barcelona Away Kit 2024/25</h3>
+                <p>NPR 3300.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Barcelona Away Kit 2024/25', 3300, 'barcelona-jersey.jpg', 'L', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Nepal Football Team 2025" data-date="2025-02-01" data-price="2600" onclick="goToProduct('nepal-football')">
+                <img src="nepal-football-jersey.jpg" alt="Nepal Football Jersey">
+                <h3>Nepal Football Team 2025</h3>
+                <p>NPR 2600.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Nepal Football Team 2025', 2600, 'nepal-football-jersey.jpg', 'M', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Liverpool Home Kit 2024/25" data-date="2024-06-10" data-price="3400" onclick="goToProduct('liverpool')">
+                <img src="liverpool-jersey.jpg" alt="Liverpool Jersey">
+                <h3>Liverpool Home Kit 2024/25</h3>
+                <p>NPR 3400.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Liverpool Home Kit 2024/25', 3400, 'liverpool-jersey.jpg', 'L', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Chelsea Away Kit 2024/25" data-date="2024-07-15" data-price="3300" onclick="goToProduct('chelsea')">
+                <img src="chelsea-jersey.jpg" alt="Chelsea Jersey">
+                <h3>Chelsea Away Kit 2024/25</h3>
+                <p>NPR 3300.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Chelsea Away Kit 2024/25', 3300, 'chelsea-jersey.jpg', 'XL', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Pokhara Thunders Jersey" data-date="2024-04-05" data-price="2100" onclick="goToProduct('pokhara-thunders')">
+                <img src="pokhara-thunders-jersey.jpg" alt="Pokhara Thunders Jersey">
+                <h3>Pokhara Thunders Jersey</h3>
+                <p>NPR 2100.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Pokhara Thunders Jersey', 2100, 'pokhara-thunders-jersey.jpg', 'S', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Arsenal Home Kit 2024/25" data-date="2024-06-20" data-price="3400" onclick="goToProduct('arsenal')">
+                <img src="arsenal-jersey.jpg" alt="Arsenal Jersey">
+                <h3>Arsenal Home Kit 2024/25</h3>
+                <p>NPR 3400.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Arsenal Home Kit 2024/25', 3400, 'arsenal-jersey.jpg', 'M', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Juventus Away Kit 2024/25" data-date="2024-07-10" data-price="3200" onclick="goToProduct('juventus')">
+                <img src="juventus-jersey.jpg" alt="Juventus Jersey">
+                <h3>Juventus Away Kit 2024/25</h3>
+                <p>NPR 3200.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Juventus Away Kit 2024/25', 3200, 'juventus-jersey.jpg', 'L', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="AC Milan Home Kit 2024/25" data-date="2024-06-25" data-price="3300" onclick="goToProduct('ac-milan')">
+                <img src="ac-milan-jersey.jpg" alt="AC Milan Jersey">
+                <h3>AC Milan Home Kit 2024/25</h3>
+                <p>NPR 3300.00</p>
+                <button class="jhola-btn" onclick="addToJhola('AC Milan Home Kit 2024/25', 3300, 'ac-milan-jersey.jpg', 'XL', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Bayern Munich Home Kit 2024/25" data-date="2024-06-05" data-price="3500" onclick="goToProduct('bayern')">
+                <img src="bayern-jersey.jpg" alt="Bayern Munich Jersey">
+                <h3>Bayern Munich Home Kit 2024/25</h3>
+                <p>NPR 3500.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Bayern Munich Home Kit 2024/25', 3500, 'bayern-jersey.jpg', 'M', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+            <div class="product-card" data-name="Lalitpur City FC Jersey" data-date="2024-03-20" data-price="2200" onclick="goToProduct('lalitpur-city-fc')">
+                <img src="lalitpur-city-fc-jersey.jpg" alt="Lalitpur City FC Jersey">
+                <h3>Lalitpur City FC Jersey</h3>
+                <p>NPR 2200.00</p>
+                <button class="jhola-btn" onclick="addToJhola('Lalitpur City FC Jersey', 2200, 'lalitpur-city-fc-jersey.jpg', 'S', event)">
+                    <img src="jhola-icon.png" alt="Jhola"> Add to Jhola
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="jhola-dialog" id="jhola-dialog">
+        <div id="jhola-items"></div>
+        <div class="jhola-total" id="jhola-total">Total: NPR 0.00</div>
+        <div class="jhola-buttons">
+            <button class="checkout" onclick="goToCheckout()">Checkout</button>
+            <button class="close" onclick="toggleJhola()">✖</button>
+        </div>
+    </div>
+
+    <script>
+        let jhola = JSON.parse(localStorage.getItem('jhola')) || [];
+
+        function initializeNavbar() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function goToProduct(productId) {
+            window.location.href = `product.html?id=${productId}`;
+        }
+
+        function toggleJhola() {
+            const jholaDialog = document.getElementById('jhola-dialog');
+            jholaDialog.classList.toggle('active');
+        }
+
+        function addToJhola(itemName, price, image, size, event) {
+            event.stopPropagation();
+            const existingItem = jhola.find(item => item.name === itemName && item.size === size);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                jhola.push({ name: itemName, price: price, image: image, size: size, quantity: 1 });
+            }
+            updateJhola();
+            toggleJhola();
+            localStorage.setItem('jhola', JSON.stringify(jhola));
+        }
+
+        function updateQuantity(itemName, size, change) {
+            const item = jhola.find(item => item.name === itemName && item.size === size);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    jhola = jhola.filter(i => i.name !== itemName || i.size !== size);
+                }
+                updateJhola();
+                localStorage.setItem('jhola', JSON.stringify(jhola));
+            }
+        }
+
+        function updateJhola() {
+            const jholaItems = document.getElementById('jhola-items');
+            const jholaTotal = document.getElementById('jhola-total');
+            const jholaCount = document.getElementById('jhola-count');
+            
+            jholaItems.innerHTML = '';
+            let total = 0;
+            jhola.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('jhola-item');
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="jhola-item-details">
+                        <h4>${item.name}</h4>
+                        <p>NPR ${item.price.toFixed(2)}</p>
+                        <p class="size">Size: ${item.size}</p>
+                    </div>
+                    <div class="jhola-item-quantity">
+                        <button onclick="updateQuantity('${item.name}', '${item.size}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity('${item.name}', '${item.size}', 1)">+</button>
+                    </div>
+                `;
+                jholaItems.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
+            jholaTotal.textContent = `Total: NPR ${total.toFixed(2)}`;
+            jholaCount.textContent = jhola.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function searchProducts() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            const noResults = document.getElementById('no-results');
+            let hasResults = false;
+
+            productCards.forEach(card => {
+                const productName = card.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchInput)) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.classList.toggle('active', !hasResults);
+        }
+
+        function sortProducts() {
+            const sortValue = document.getElementById('sort-select').value;
+            const productGrid = document.getElementById('product-grid');
+            const productCards = Array.from(productGrid.querySelectorAll('.product-card'));
+
+            productCards.sort((a, b) => {
+                if (sortValue === 'newest') {
+                    return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+                } else if (sortValue === 'oldest') {
+                    return new Date(a.getAttribute('data-date')) - new Date(b.getAttribute('data-date'));
+                } else if (sortValue === 'price-low') {
+                    return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+                } else if (sortValue === 'price-high') {
+                    return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+                } else {
+                    return 0; // Relevance (default order)
+                }
+            });
+
+            productGrid.innerHTML = '';
+            productCards.forEach(card => productGrid.appendChild(card));
+            searchProducts(); // Re-apply search filter after sorting
+        }
+
+        function loadSearchQuery() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search');
+            if (searchQuery) {
+                document.getElementById('search-input').value = searchQuery;
+                searchProducts();
+            }
+        }
+
+        function goToCheckout() {
+            window.location.href = 'checkout.html';
+        }
+
+        initializeNavbar();
+        updateJhola();
+        loadSearchQuery();
+    </script>
+</body>
+</html>

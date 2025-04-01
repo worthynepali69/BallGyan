@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Gyan - Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0080ff;
+            --primary-text: #2c3e50;
+            --accent-color: #1abc9c;
+            --secondary-bg: #ffffff;
+            --nav-bg: linear-gradient(90deg, #1abc9c, #16a085);
+            --nav-text: #ffffff;
+            --card-hover: #7f8c8d;
+            --border-color: #dfe6e9;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --highlight-red: #e74c3c;
+            --highlight-yellow: #ffeb3b;
+            --input-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e6f0fa, #d6e6f2);
+            color: var(--primary-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+            padding: 0.3rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            height: 50px;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .navbar .logo img {
+            height: 35px;
+            width: auto;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .navbar a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+
+        .navbar a.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.3rem;
+            color: var(--nav-text);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: transform 0.3s ease W;
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            flex-direction: column;
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            z-index: 999;
+            align-items: center;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 0.7rem 1rem;
+            font-size: 0.95rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .checkout-form {
+            flex: 2;
+            background: var(--secondary-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        .checkout-form h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkout-form h1 a {
+            color: var(--primary-text);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--primary-text);
+        }
+
+        .form-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--primary-text);
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .form-group .required::after {
+            content: '*';
+            color: var(--highlight-red);
+            margin-left: 0.2rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--input-bg);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            background: #fff;
+            box-shadow: 0 0 5px rgba(26, 188, 156, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .payment-option {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option input {
+            display: none;
+        }
+
+        .payment-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .payment-option img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .payment-option input:checked + label {
+            border: 2px solid var(--accent-color);
+            background: rgba(26, 188, 156, 0.1);
+        }
+
+        .order-summary {
+            flex: 1;
+            background: var(--secondary-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        .order-summary h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-details h4 {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .order-item-details p {
+            font-size: 0.85rem;
+            color: var(--primary-text);
+            margin: 0.2rem 0;
+        }
+
+        .order-item-details .price {
+            font-size: 0.9rem;
+            color: var(--highlight-red);
+            font-weight: 600;
+        }
+
+        .summary-details {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .summary-details p {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .summary-details .total {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .promo-code {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .promo-code input {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 0.95rem;
+            outline: none;
+            background: var(--input-bg);
+        }
+
+        .promo-code button {
+            background: var(--primary-text);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .promo-code button:hover {
+            background: var(--card-hover);
+        }
+
+        .promo-code-note {
+            font-size: 0.85rem;
+            color: var(--primary-text);
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .place-order-btn {
+            background: var(--primary-text);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .place-order-btn:hover {
+            background: var(--card-hover);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 0 1rem;
+            }
+
+            .navbar {
+                height: 45px;
+            }
+
+            .navbar .logo img {
+                height: 30px;
+            }
+
+            .navbar .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-nav {
+                top: 45px;
+            }
+
+            .form-group {
+                flex-direction: column;
+            }
+
+            .payment-methods {
+                flex-direction: column;
+            }
+
+            .checkout-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="goToHome()">
+            <img src="ballgyanlogo.png" alt="Ball Gyan Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="table.html">NSL</a>
+            <a href="shop.html" class="active">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="NSL.html">NSL</a>
+            <a href="shop.html" class="active">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="checkout-form">
+            <h1>
+                <a href="shop.html">←</a> Checkout
+            </h1>
+
+            <div class="section">
+                <h2>1. General Information</h2>
+                <div class="form-group">
+                    <div>
+                        <label class="required">Full Name</label>
+                        <input type="text" placeholder="eg: Ram Bahadur" required>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input type="email" placeholder="eg: john@gmail.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="required">Phone Number</label>
+                        <input type="tel" placeholder="eg: 9862200000" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label>Order Note (any message for us)</label>
+                        <textarea placeholder="eg: I was searching for this product from so long."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>2. Delivery Address</h2>
+                <div class="form-group">
+                    <div>
+                        <label class="required">City / District</label>
+                        <input type="text" placeholder="eg: Kathmandu Inside Ring Road" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="required">Address</label>
+                        <input type="text" placeholder="eg: kathmandu, tinkune" required>
+                    </div>
+                    <div>
+                        <label>Landmark</label>
+                        <input type="text" placeholder="eg: madan bhandari park">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>3. Payment Methods</h2>
+                <div class="payment-methods">
+                    <div class="payment-option">
+                        <input type="radio" id="qr-payment" name="payment-method" value="qr" checked>
+                        <label for="qr-payment">
+                            <img src="qr-icon.png" alt="QR Payment">
+                            QR Payment
+                        </label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="visa-mastercard" name="payment-method" value="visa-mastercard">
+                        <label for="visa-mastercard">
+                            <img src="visa-mastercard-icon.png" alt="Visa/Mastercard">
+                            Visa/Mastercard
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div id="order-items"></div>
+            <div class="summary-details">
+                <p>Sub-total <span id="sub-total">NPR 0.00</span></p>
+                <p>Delivery Charge <span>NPR 100.00</span></p>
+                <p class="total">Total <span id="total">NPR 0.00</span></p>
+            </div>
+            <div class="promo-code">
+                <input type="text" id="promo-code" placeholder="eg: FREE30">
+                <button onclick="applyPromoCode()">Apply</button>
+            </div>
+           
+            <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <script>
+        let jhola = JSON.parse(localStorage.getItem('jhola')) || [];
+        let deliveryCharge = 100;
+        let discount = 0;
+
+        function initializeNavbar() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function loadOrderSummary() {
+            const orderItems = document.getElementById('order-items');
+            const subTotalElement = document.getElementById('sub-total');
+            const totalElement = document.getElementById('total');
+            
+            orderItems.innerHTML = '';
+            let subTotal = 0;
+
+            jhola.forEach(item => {
+                subTotal += item.price * item.quantity;
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-item');
+                orderItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="order-item-details">
+                        <h4>${item.name}</h4>
+                        <p>Variant: White / S</p>
+                        <p class="price">NPR ${item.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                `;
+                orderItems.appendChild(orderItem);
+            });
+
+            subTotalElement.textContent = `NPR ${subTotal.toFixed(2)}`;
+            const totalBeforeDiscount = subTotal + deliveryCharge;
+            const total = total.ConcurrentModificationExceptionBeforeDiscount - (totalBeforeDiscount * discount);
+            totalElement.textContent = `NPR ${total.toFixed(2)}`;
+        }
+
+        function applyPromoCode() {
+            const promoCode = document.getElementById('promo-code').value.toLowerCase();
+            if (promoCode === 'greaternepal25') {
+                discount = 0.25; // 25% discount
+                alert('Promo code applied! You got 25% off.');
+            } else if (promoCode === 'free30') {
+                discount = 0;
+                alert('Sorry, the promo code FREE30 is not valid.');
+            } else {
+                discount = 0;
+                alert('Invalid promo code.');
+            }
+            loadOrderSummary();
+        }
+
+        function placeOrder() {
+            const fullName = document.querySelector('input[placeholder="eg: Ram Bahadur"]').value;
+            const phoneNumber = document.querySelector('input[placeholder="eg: 9862200000"]').value;
+            const cityDistrict = document.querySelector('input[placeholder="eg: Kathmandu Inside Ring Road"]').value;
+            const address = document.querySelector('input[placeholder="eg: kathmandu, tinkune"]').value;
+
+            if (!fullName || !phoneNumber || !cityDistrict || !address) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            alert('Order placed successfully! Thank you for shopping with Ball Gyan.');
+            localStorage.removeItem('jhola');
+            window.location.href = 'shop.html';
+        }
+
+        initializeNavbar();
+        loadOrderSummary();
+    </script>
+</body>
+</html>

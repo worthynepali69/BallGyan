@@ -1,0 +1,94 @@
+{
+  "products": [
+    {
+      "id": "real-madrid-2025-jersey",
+      "name": "Real Madrid 2025 Jersey",
+      "price": 2500,
+      "cutPrice": 3000,
+      "image": "products/realmadrid.png",
+      "category": "european",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Real Madrid 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "barcelona-2025-jersey",
+      "name": "Barcelona 2025 Jersey",
+      "price": 2500,
+      "cutPrice": 3000,
+      "image": "products/barcelona.png",
+      "category": "european",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Barcelona 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "manchester-united-2025-jersey",
+      "name": "Manchester United 2025 Jersey",
+      "price": 2400,
+      "cutPrice": 2900,
+      "image": "products/manchester.png",
+      "category": "european",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Manchester United 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "nepal-cricket-kit-2025",
+      "name": "Nepal Cricket Kit 2025",
+      "price": 2200,
+      "cutPrice": 2800,
+      "image": "products/nepal.png",
+      "category": "nepali",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Nepal Cricket Kit 2025 designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "kathmandu-rayzrs-2025-jersey",
+      "name": "Kathmandu RayZrs 2025 Jersey",
+      "price": 1900,
+      "cutPrice": 2500,
+      "image": "products/kathmandu.png",
+      "category": "nepali",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Kathmandu RayZrs 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "pokhara-thunders-2025-jersey",
+      "name": "Pokhara Thunders 2025 Jersey",
+      "price": 1900,
+      "cutPrice": 2500,
+      "image": "products/pokhara.png",
+      "category": "nepali",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Pokhara Thunders 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "lalitpur-city-fc-2025-jersey",
+      "name": "Lalitpur City FC 2025 Jersey",
+      "price": 1800,
+      "cutPrice": 2400,
+      "image": "products/lalitpur.png",
+      "category": "nepali",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Lalitpur City FC 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "biratnagar-city-fc-2025-jersey",
+      "name": "Biratnagar City FC 2025 Jersey",
+      "price": 1800,
+      "cutPrice": 2400,
+      "image": "products/biratnagar.png",
+      "category": "nepali",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Biratnagar City FC 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    },
+    {
+      "id": "butwal-2025-jersey",
+      "name": "Butwal 2025 Jersey",
+      "price": 1800,
+      "cutPrice": 2400,
+      "image": "products/butwal.png",
+      "category": "nepali",
+      "stock": "Out of stock",
+      "description": "This is a high-quality Butwal 2025 jersey designed for fans and athletes alike. Made with breathable fabric, it ensures comfort during intense matches or casual wear."
+    }
+  ]
+}

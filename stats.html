@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Gyan - Stats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Shared CSS for all pages */
+        :root {
+            --primary-bg: #f8f9fa;
+            --primary-text: #2c3e50;
+            --accent-color: #1abc9c;
+            --secondary-bg: #ffffff;
+            --nav-bg: linear-gradient(90deg, #1abc9c, #16a085);
+            --nav-text: #ffffff;
+            --card-hover: #7f8c8d;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --glow-color: rgba(26, 188, 156, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            height: 60px;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer; /* Indicate the logo is clickable */
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar .logo a {
+            display: none; /* Hide the "Ball Gyan" text */
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+
+        .navbar a.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--nav-text);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            flex-direction: column;
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            z-index: 999;
+            align-items: center;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Page-specific CSS */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background: var(--secondary-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 188, 156, 0.15), rgba(22, 160, 133, 0.05));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-section {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-header {
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            padding: 0.6rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+        .stats-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px var(--shadow-color);
+        }
+
+        .stats-item .player {
+            flex: 2;
+            font-weight: 500;
+        }
+
+        .stats-item .team {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .stats-item .team img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .stats-item .team:hover {
+            color: var(--accent-color);
+        }
+
+        .stats-item .value {
+            flex: 1;
+            text-align: right;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        select {
+            padding: 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--primary-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 50px;
+            }
+
+            .navbar .logo img {
+                height: 30px;
+            }
+
+            .navbar .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-nav {
+                top: 50px;
+            }
+
+            .stats-item {
+                flex-direction: column;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .stats-item .team {
+                justify-content: center;
+            }
+
+            .stats-item .team img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .stats-item .value {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="goToHome()">
+            <img src="ballgyanlogo.png" alt="Ball Gyan Logo">
+            <a href="index.html" id="logo-link">Ball Gyan</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="table.html">NSL</a>
+            <a href="shop.html">Shop</a>
+            <a href="join.html">About!</a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="table.html">NSL</a>
+            <a href="shop.html">Shop</a>
+            <a href="join.html">About</a>
+        </div>
+    </nav>
+
+    <div class="container" id="content"></div>
+
+    <script>
+        // Shared Data
+        const appData = {
+            "clubs": {
+                "Kathmandu RayZrs FC": {
+                    "logo": "club_logo_kathmandu_rayzrs_fc.png",
+                    "MP": 1, "W": 1, "D": 0, "L": 0, "Goals": "2-1", "GD": 1, "Pts": 3,
+                    "coach": "Rohan Karki",
+                    "squad": ["Dipesh Gurung", "Kuldip Karki", "Abhishek Baral", "Dinesh Henjan", "Gillespye Jung Karki", "Ashish Chapagain", "Kamal Shrestha", "Diwakar Chaudhary", "Anjal Maharjan"],
+                    "schedule": ["Sat, 29 Mar vs Lalitpur City FC - 06:00 PM"],
+                    "homeGround": "Dasharath Stadium",
+                    "info": "Kathmandu RayZrs FC is known for its aggressive attacking style."
+                },
+                "Lalitpur City FC": {
+                    "logo": "club_logo_lalitpur_city_fc.png",
+                    "MP": 1, "W": 0, "D": 0, "L": 1, "Goals": "1-2", "GD": -1, "Pts": 0,
+                    "coach": "Roshan Dong",
+                    "squad": ["Sanish Shrestha", "Aditya Shakya", "Santosh Khatri", "Mani Kumar Lama", "Sudip Gurung", "Yogesh Gurung", "Nabin Lama", "Abhishek Waiba", "Samit Shrestha"],
+                    "schedule": ["Sat, 29 Mar vs Kathmandu RayZrs FC - 06:00 PM"],
+                    "homeGround": "Lalitpur Stadium",
+                    "info": "Lalitpur City FC focuses on a balanced approach with strong defense."
+                },
+                "Butwal Lumbini FC": {
+                    "logo": "club_logo_butwal_lumbini_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Suman Maharjan",
+                    "squad": ["Arik Bista", "Nirajan Dhami", "Saroj Tamang", "Deep Karki", "Pradip Lama", "Fatehman Ghale", "Bimal Pandey", "Tikendra Singh Thapa", "Sandeep Karki"],
+                    "schedule": ["Sun, 30 Mar vs Jhapa FC - 06:00 PM"],
+                    "homeGround": "Butwal Stadium",
+                    "info": "Butwal Lumbini FC is a rising team with young talent."
+                },
+                "Jhapa FC": {
+                    "logo": "club_logo_jhapa_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Yogesh Gurung",
+                    "squad": ["Chiring Lama", "Ashish Gurung", "NRN", "Abinash Syangtan", "Dipesh Dhimal", "Anjal Shrestha", "Roshan Pahari", "Dipendra BK", "Ujjwal Rai"],
+                    "schedule": ["Sun, 30 Mar vs Butwal Lumbini FC - 06:00 PM"],
+                    "homeGround": "Jhapa Stadium",
+                    "info": "Jhapa FC is known for its passionate fanbase."
+                },
+                "Dhangadhi FC": {
+                    "logo": "club_logo_dhangadhi_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Juan Manuel Martínez",
+                    "squad": ["Devendra Tamang", "Randip Paudyal", "Ram Chandra Wajee", "Bibek Poudel", "Pasang Lama", "George Prince Karki", "Prashant Laksam", "Ashok Khawas", "Jiyarath Sheikh"],
+                    "schedule": [],
+                    "homeGround": "Dhangadhi Stadium",
+                    "info": "Dhangadhi FC has a history of strong performances in the NSL."
+                },
+                "Pokhara Thunders FC": {
+                    "logo": "club_logo_pokhara_thunders_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Bimal Gharti Magar",
+                    "squad": ["Ayush Ghalan", "Padam Bhattarai", "Ekraj Budhathoki", "NRN", "Suraj Singh Thakuri", "Ram Thapa", "Chandan Das", "Bishal Tamang", "Krishal Moktan"],
+                    "schedule": [],
+                    "homeGround": "Pokhara Stadium",
+                    "info": "Pokhara Thunders FC is known for its fast-paced gameplay."
+                },
+                "FC Chitwan": {
+                    "logo": "club_logo_fc_chitwan.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Sunil Shrestha",
+                    "squad": ["Bishal Shrestha", "Tshiring Gurung", "Roshan Rana Magar", "Abhishek Limbu", "Sumit Shrestha", "Neeraj Chaudhary", "Milan Rai", "Shishir Lekhi", "Jaya Gurung"],
+                    "schedule": [],
+                    "homeGround": "Chitwan Stadium",
+                    "info": "FC Chitwan is a team with a strong defensive strategy."
+                },
+                "Biratnagar City FC": {
+                    "logo": "club_logo_biratnagar_city_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Sanjay Limbu",
+                    "squad": ["Roshan Magar", "Nabin Thapa", "Suman Gurung", "Aashish Lama"],
+                    "schedule": [],
+                    "homeGround": "Biratnagar Stadium",
+                    "info": "Biratnagar City FC is known for its youth development program."
+                },
+                "Sporting Ilam FC": {
+                    "logo": "club_logo_sporting_ilam_fc.png",
+                    "MP": 0, "W": 0, "D": 0, "L": 0, "Goals": "0-0", "GD": 0, "Pts": 0,
+                    "coach": "Prabin Magar",
+                    "squad": ["Suresh Rai", "Bikash Shrestha", "Niraj Limbu", "Sabin Thapa"],
+                    "schedule": [],
+                    "homeGround": "Ilam Stadium",
+                    "info": "Sporting Ilam FC is a team with a focus on local talent."
+                }
+            },
+            "stats": {
+                "2021": {
+                    "topScorers": [
+                        {"player": "Dipesh Gurung", "team": "Kathmandu RayZrs FC", "value": 8},
+                        {"player": "Devendra Tamang", "team": "Dhangadhi FC", "value": 7},
+                        {"player": "Ayush Ghalan", "team": "Pokhara Thunders FC", "value": 6}
+                    ],
+                    "topAssists": [
+                        {"player": "Kuldip Karki", "team": "Kathmandu RayZrs FC", "value": 5},
+                        {"player": "Ram Chandra Wajee", "team": "Dhangadhi FC", "value": 4},
+                        {"player": "Sanish Shrestha", "team": "Lalitpur City FC", "value": 3}
+                    ],
+                    "goalsAssists": [
+                        {"player": "Dipesh Gurung", "team": "Kathmandu RayZrs FC", "value": 12},
+                        {"player": "Devendra Tamang", "team": "Dhangadhi FC", "value": 10},
+                        {"player": "Ayush Ghalan", "team": "Pokhara Thunders FC", "value": 8}
+                    ],
+                    "cleanSheets": [
+                        {"player": "Bibek Poudel", "team": "Dhangadhi FC", "value": 5},
+                        {"player": "Gillespye Jung Karki", "team": "Kathmandu RayZrs FC", "value": 4},
+                        {"player": "Bishal Shrestha", "team": "FC Chitwan", "value": 3}
+                    ]
+                },
+                "2023": {
+                    "topScorers": [
+                        {"player": "Devendra Tamang", "team": "Dhangadhi FC", "value": 9},
+                        {"player": "Dipesh Gurung", "team": "Kathmandu RayZrs FC", "value": 7},
+                        {"player": "Ayush Ghalan", "team": "Pokhara Thunders FC", "value": 5}
+                    ],
+                    "topAssists": [
+                        {"player": "Ram Chandra Wajee", "team": "Dhangadhi FC", "value": 6},
+                        {"player": "Kuldip Karki", "team": "Kathmandu RayZrs FC", "value": 4},
+                        {"player": "Padam Bhattarai", "team": "Pokhara Thunders FC", "value": 3}
+                    ],
+                    "goalsAssists": [
+                        {"player": "Devendra Tamang", "team": "Dhangadhi FC", "value": 14},
+                        {"player": "Dipesh Gurung", "team": "Kathmandu RayZrs FC", "value": 11},
+                        {"player": "Ayush Ghalan", "team": "Pokhara Thunders FC", "value": 7}
+                    ],
+                    "cleanSheets": [
+                        {"player": "Bibek Poudel", "team": "Dhangadhi FC", "value": 6},
+                        {"player": "Gillespye Jung Karki", "team": "Kathmandu RayZrs FC", "value": 5},
+                        {"player": "Sanish Shrestha", "team": "Lalitpur City FC", "value": 4}
+                    ]
+                },
+                "2025": {
+                    "topScorers": [
+                        {"player": "Dipesh Gurung", "team": "Kathmandu RayZrs FC", "value": 1},
+                        {"player": "Kuldip Karki", "team": "Kathmandu RayZrs FC", "value": 1},
+                        {"player": "Sanish Shrestha", "team": "Lalitpur City FC", "value": 1}
+                    ],
+                    "topAssists": [
+                        {"player": "Abhishek Baral", "team": "Kathmandu RayZrs FC", "value": 1},
+                        {"player": "Dinesh Henjan", "team": "Kathmandu RayZrs FC", "value": 1}
+                    ],
+                    "goalsAssists": [
+                        {"player": "Dipesh Gurung", "team": "Kathmandu RayZrs FC", "value": 1},
+                        {"player": "Kuldip Karki", "team": "Kathmandu RayZrs FC", "value": 1},
+                        {"player": "Sanish Shrestha", "team": "Lalitpur City FC", "value": 1},
+                        {"player": "Abhishek Baral", "team": "Kathmandu RayZrs FC", "value": 1},
+                        {"player": "Dinesh Henjan", "team": "Kathmandu RayZrs FC", "value": 1}
+                    ],
+                    "cleanSheets": []
+                }
+            }
+        };
+
+        // Shared Functions
+        function initializeNavbar() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function loadClubProfile(clubName) {
+            localStorage.setItem('selectedClub', clubName);
+            window.location.href = 'club.html';
+        }
+
+        // Page-specific Functions
+        function populateStats(container) {
+            container.innerHTML = `
+                <h2>Player Stats</h2>
+                <select id="season-select" onchange="updateStats()">
+                    <option value="2021">2021 Season</option>
+                    <option value="2023">2023 Season</option>
+                    <option value="2025" selected>2025 Season</option>
+                </select>
+                <div class="stats-section">
+                    <h3 class="stats-header">Top Scorers</h3>
+                    <div id="top-scorers"></div>
+                </div>
+                <div class="stats-section">
+                    <h3 class="stats-header">Top Assists</h3>
+                    <div id="top-assists"></div>
+                </div>
+                <div class="stats-section">
+                    <h3 class="stats-header">Goals + Assists</h3>
+                    <div id="goals-assists"></div>
+                </div>
+                <div class="stats-section">
+                    <h3 class="stats-header">Clean Sheets</h3>
+                    <div id="clean-sheets"></div>
+                </div>
+            `;
+            updateStats();
+        }
+
+        function updateStats() {
+            const season = document.getElementById('season-select').value;
+            const stats = appData.stats[season];
+
+            const topScorers = document.getElementById('top-scorers');
+            const topAssists = document.getElementById('top-assists');
+            const goalsAssists = document.getElementById('goals-assists');
+            const cleanSheets = document.getElementById('clean-sheets');
+
+            topScorers.innerHTML = stats.topScorers.length ? stats.topScorers.map(stat => `
+                <div class="stats-item">
+                    <div class="player">${stat.player}</div>
+                    <div class="team" onclick="loadClubProfile('${stat.team}')">
+                        <img src="${appData.clubs[stat.team].logo}" alt="${stat.team} Logo">
+                        <span>${stat.team}</span>
+                    </div>
+                    <div class="value">${stat.value}</div>
+                </div>
+            `).join('') : '<div class="stats-item">No data available</div>';
+
+            topAssists.innerHTML = stats.topAssists.length ? stats.topAssists.map(stat => `
+                <div class="stats-item">
+                    <div class="player">${stat.player}</div>
+                    <div class="team" onclick="loadClubProfile('${stat.team}')">
+                        <img src="${appData.clubs[stat.team].logo}" alt="${stat.team} Logo">
+                        <span>${stat.team}</span>
+                    </div>
+                    <div class="value">${stat.value}</div>
+                </div>
+            `).join('') : '<div class="stats-item">No data available</div>';
+
+            goalsAssists.innerHTML = stats.goalsAssists.length ? stats.goalsAssists.map(stat => `
+                <div class="stats-item">
+                    <div class="player">${stat.player}</div>
+                    <div class="team" onclick="loadClubProfile('${stat.team}')">
+                        <img src="${appData.clubs[stat.team].logo}" alt="${stat.team} Logo">
+                        <span>${stat.team}</span>
+                    </div>
+                    <div class="value">${stat.value}</div>
+                </div>
+            `).join('') : '<div class="stats-item">No data available</div>';
+
+            cleanSheets.innerHTML = stats.cleanSheets.length ? stats.cleanSheets.map(stat => `
+                <div class="stats-item">
+                    <div class="player">${stat.player}</div>
+                    <div class="team" onclick="loadClubProfile('${stat.team}')">
+                        <img src="${appData.clubs[stat.team].logo}" alt="${stat.team} Logo">
+                        <span>${stat.team}</span>
+                    </div>
+                    <div class="value">${stat.value}</div>
+                </div>
+            `).join('') : '<div class="stats-item">No data available</div>';
+        }
+
+        window.onload = () => {
+            initializeNavbar();
+            const content = document.getElementById('content');
+            const section = document.createElement('div');
+            section.classList.add('section');
+            content.appendChild(section);
+            populateStats(section);
+        };
+    </script>
+</body>
+</html>

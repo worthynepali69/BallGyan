@@ -1,0 +1,67 @@
+{
+  "blogs": [
+    {
+      "id": 1,
+      "title": "Butwal Lumbini FC Secures 1-0 Victory Over Jhapa FC in NSL 2025 Thriller",
+      "category": "Football",
+      "body": "On March 30, 2025, Butwal Lumbini FC clinched a hard-fought 1-0 win against Jhapa FC in the Nepal Super League 2025 at Dasharath Stadium. Arik Bista scored the decisive goal in the 72nd minute, capitalizing on a defensive error by Jhapa. Despite a strong performance from Jhapa's Chiring Lama, who tested Butwal's goalkeeper multiple times, Butwal's defense held firm to secure the three points. This victory places Butwal Lumbini FC alongside Kathmandu RayZrs FC at the top of the NSL standings after two matches in the 2025 season.",
+      "author": "Roshan Magar",
+      "timestamp": "3h ago",
+      "image": "butwal_lumbini_fc_match.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Nepal Appoints Stuart Law as New Cricket Coach Ahead of World Cup League 2",
+      "category": "Cricket",
+      "body": "The Cricket Association of Nepal (CAN) announced on March 29, 2025, that former Australian international Stuart Law has been appointed as the new head coach of the Nepal national cricket team. Law, who previously guided the United States to the Super 8s of the 2024 T20 World Cup, replaces Monty Desai, whose contract was not renewed. Nepal is set to face Scotland and the Netherlands in the World Cup League 2 in June 2025, as part of the qualifiers for the 2027 Cricket World Cup in South Africa, Zimbabwe, and Namibia. Law expressed excitement about working with Nepal's talented squad and aims to build on their recent international performances.",
+      "author": "Anil Gurung",
+      "timestamp": "1d ago",
+      "image": "stuart_law_nepal_coach.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Rajasthan Royals Dominate Chennai Super Kings in IPL 2025 Match 11",
+      "category": "Cricket",
+      "body": "In a thrilling IPL 2025 encounter on March 30, 2025, at Guwahati, Rajasthan Royals posted a formidable 145/5 in 15 overs against Chennai Super Kings, who elected to field first. The match, reported by NDTV Sports, saw Rajasthan's batsmen dominate early, with key contributions from their top order. Chennai Super Kings struggled to contain the run flow and will need a strong batting performance to chase down the target. This match highlights Rajasthan Royals' strong form in the 18th edition of the Indian Premier League, which began on March 22, 2025.",
+      "author": "Sabin Shrestha",
+      "timestamp": "5h ago",
+      "image": "rajasthan_royals_ipl_2025.jpg"
+    },
+    {
+      "id": 4,
+      "title": "RCB Breaks 17-Year Jinx with 50-Run Win Over CSK in IPL 2025",
+      "category": "Cricket",
+      "body": "Royal Challengers Bengaluru (RCB) achieved a historic victory on March 29, 2025, defeating Chennai Super Kings (CSK) by 50 runs in IPL 2025 at the MA Chidambaram Stadium, Chennai. According to NDTV Sports, this win marked RCB's second victory at the venue, the first being in IPL 2008, breaking a 17-year jinx. RCB's strong batting performance, led by Virat Kohli and Rajat Patidar, set a challenging total, while their bowlers, including Noor Ahmad, restricted CSK's chase. This match, the 8th of the IPL 2025 season, showcased RCB's resurgence under new leadership.",
+      "author": "Prabin Magar",
+      "timestamp": "1d ago",
+      "image": "rcb_vs_csk_ipl_2025.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Premier League Announces Split Transfer Window for Summer 2025",
+      "category": "Football",
+      "body": "The Premier League has confirmed a split transfer window for the summer of 2025 to accommodate Manchester City and Chelsea's participation in the Club World Cup, as reported by BBC Sport on March 27, 2025. The window will open from June 1 to June 10, close for five days, and then reopen from June 16 until September 1. This decision, agreed upon at a shareholders' meeting in London, ensures all Premier League clubs can conduct business during the earlier window, aligning with other European leagues. The move aims to balance competitive fairness with the expanded Club World Cup schedule.",
+      "author": "Kiran Thapa",
+      "timestamp": "3d ago",
+      "image": "premier_league_transfer_window.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Lucknow Super Giants Triumph Over Sunrisers Hyderabad in IPL 2025",
+      "category": "Cricket",
+      "body": "Lucknow Super Giants (LSG) secured a 5-wicket victory over Sunrisers Hyderabad (SRH) in an IPL 2025 match on March 28, 2025, at the Rajiv Gandhi International Stadium, as reported by The Indian Express. Shardul Thakur's 4-wicket haul restricted SRH to under 200 runs, despite SRH's history of high scores at the venue, including 286 earlier in the season. Nicholas Pooran and Mitchell Marsh starred in LSG's chase, ensuring a comfortable win. This match highlighted LSG's strong bowling attack and their ability to handle pressure in the IPL 2025 season.",
+      "author": "Roshan Magar",
+      "timestamp": "2d ago",
+      "image": "lsg_vs_srh_ipl_2025.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Chennai Super Kings Defeat Mumbai Indians by 4 Wickets in IPL 2025",
+      "category": "Cricket",
+      "body": "Chennai Super Kings (CSK) registered an easy 4-wicket win over Mumbai Indians (MI) in IPL 2025 on March 24, 2025, as reported by NDTV Sports. Rachin Ravindra played a pivotal role as an anchor, guiding CSK to chase down MI's total. Despite efforts from MI's Suryakumar Yadav and Rohit Sharma, CSK's balanced batting lineup, supported by Ruturaj Gaikwad and Ravindra Jadeja, ensured victory. This match, the third of the IPL 2025 season, continued MI's unwanted streak of losses against CSK, adding to the 'El Clasico' rivalry in the Indian Premier League.",
+      "author": "Sabin Shrestha",
+      "timestamp": "6d ago",
+      "image": "csk_vs_mi_ipl_2025.jpg"
+    }
+  ]
+}
